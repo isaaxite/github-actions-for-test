@@ -32,6 +32,8 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
+      - name: Install pnpm
+        run: npm install -g pnpm
       - run: pnpm install
       - run: npm publish
         env:

@@ -5,7 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "echo 'nothing need to build' && exit 0"
+    "build": "echo 'nothing need to build' && exit 0",
+    "git-push": "git push origin HEAD && git push --tags"
+  },
+  "standard-version": {
+    "scripts": {
+      "posttag": "npm run git-push"
+    }
   },
   "repository": {
     "type": "git",
