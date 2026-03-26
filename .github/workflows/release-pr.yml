@@ -19,8 +19,6 @@ jobs:
       - name: test
         run: |
           echo "PR created: ${{ steps.release.outputs.pr }}"
-          echo "PR number: ${{ steps.release.outputs['prs']['node']['number'] }}"
-          echo "Release created: ${{ steps.release.outputs.release_created }}"
 
       - name: Checkout code
         uses: actions/checkout@v6
@@ -40,7 +38,7 @@ jobs:
         with:
           script: |
             const tap = `${{ steps.tap.outputs.tap }}`;
-            const prNumber = ${{ steps.release.outputs.pr.number }};
+            const prNumber = ${{ fromJSON(steps.release.outputs.pr).number }};
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
