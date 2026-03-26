@@ -16,6 +16,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
 
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref }}
+
       - name: Tap Content
         id: tap
         run: |
