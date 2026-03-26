@@ -18,3 +18,7 @@ jobs:
           skip-github-release: true
           skip-github-pull-request: true
           skip-labeling: true
+
+      - name: test
+        run: |
+          echo ${{ steps.release.outputs }}
