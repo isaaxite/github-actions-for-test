@@ -15,13 +15,23 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
-          skip-github-release: true
-          skip-github-pull-request: true
-          skip-labeling: true
 
-      - name: test
+      - name: Tap Content
+        id: tap
         run: |
-          echo "release_created: ${{ steps.release.outputs.release_created }}"
-          echo "release_tag: ${{ steps.release.outputs.tag_name }}"
-          echo "release_version: ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}.${{ steps.release.outputs.patch }}"
-          echo "paths_released: ${{ steps.release.outputs.paths_released }}"
+          echo "tap<<EOF" >> $GITHUB_OUTPUT
+          cat reports/ava.tap >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Comment on Release PR
+        if: steps.release.outputs.pr != ''
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const tap = `${{ steps.tap.outputs.tap }}`;
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: tap,
+            });

@@ -1,0 +1,93 @@
+TAP version 13
+# before hook
+ok 1 - PathTreeNodeKind — has correct string values
+ok 2 - constructor — throws when base is omitted
+ok 3 - constructor — throws when base is an empty string
+ok 4 - constructor — throws when base does not exist
+ok 5 - constructor — throws when base points to a file
+ok 6 - constructor — succeeds with a valid directory
+ok 7 - constructor — throws when filter is a string
+ok 8 - constructor — throws when filter is a number
+ok 9 - constructor — throws when filter is null
+ok 10 - constructor — accepts zero-parameter filter
+ok 11 - constructor — accepts one-parameter filter
+ok 12 - constructor — accepts filter that always returns false
+ok 13 - constructor — accepts fileVisible: true
+ok 14 - constructor — accepts fileVisible: false
+ok 15 - constructor — accepts usePathCache: true
+ok 16 - constructor — accepts usePathCache: false
+ok 17 - build() — root parent is null
+ok 18 - build() — root value is empty string
+ok 19 - build() — root type is Unknown
+ok 20 - build() — root children is an array
+ok 21 - build() — root depth is 0
+ok 22 - build() — top-level children have depth 1
+ok 23 - build() — grandchildren have depth 2
+ok 24 - build() — depth increments correctly through 3 levels
+ok 25 - buildBy([]) — top-level nodes have depth 1
+ok 26 - fileVisible: true — file nodes have correct depth
+ok 27 - build() — top-level files are excluded by default
+ok 28 - build() — top-level directories are all present
+ok 29 - build() — all top-level dir nodes have type Dir
+ok 30 - build() — nested children are built recursively
+ok 31 - build() — each node has a correct parent back-reference
+ok 32 - fileVisible: true — files appear at top level
+ok 33 - fileVisible: true — file nodes have type File
+ok 34 - fileVisible: true — file nodes have no children
+ok 35 - fileVisible: true — directory nodes still have type Dir
+ok 36 - fileVisible: true — dir nodes still recurse correctly
+ok 37 - fileVisible: false (explicit) — files remain excluded
+ok 38 - fileVisible: true — mixed dir/file siblings both typed correctly
+ok 39 - build() — filter excludes at top level
+ok 40 - build() — filter is applied recursively
+ok 41 - build() — filter receives correct name and dirPath params
+ok 42 - build() — filter combined with fileVisible: true filters files too
+ok 43 - buildBy([]) — returns only requested top-level dirs
+ok 44 - buildBy([]) — builds full subtrees under requested dirs
+ok 45 - buildBy([]) — top-level nodes have type Dir
+ok 46 - buildBy([]) — parent references are correct
+ok 47 - buildBy([]) — strips leading/trailing posix slashes
+ok 48 - buildBy([]) — entries that reduce to empty string are silently dropped
+ok 49 - buildBy([]) — empty array produces root with no children
+ok 50 - buildBy([]) — throws when segment does not exist
+ok 51 - buildBy([]) — throws when segment is a file and fileVisible is false
+ok 52 - buildBy([]) — accepts a file segment when fileVisible: true
+ok 53 - buildBy([]) — backslash is treated as separator by formatSegments
+ok 54 - buildBy(fn) — includes only entries matching predicate
+ok 55 - buildBy(fn) — predicate returning false for all yields empty root
+ok 56 - buildBy(fn) — predicate returning true for all matches build()
+ok 57 - buildBy(fn) — predicate receives entry name as string
+ok 58 - buildBy(fn) — predicate does not receive files when fileVisible is false
+ok 59 - buildBy(fn) — predicate receives files when fileVisible is true
+ok 60 - buildBy — throws TypeError for argument: 42
+ok 61 - buildBy — throws TypeError for argument: null
+ok 62 - buildBy — throws TypeError for argument: {}
+ok 63 - buildBy — throws TypeError for argument: "src"
+ok 64 - buildBy — throws TypeError for argument: true
+ok 65 - buildBy — throws TypeError for argument: undefined
+ok 66 - getPath() — root node returns empty relative and base as absolute
+ok 67 - getPath() — top-level node returns its name as relative
+ok 68 - getPath() — nested node returns sep-joined relative path
+ok 69 - getPath() — 3-level deep node returns correct path
+ok 70 - getPath() — absolute path exists on disk
+ok 71 - getPath() — file node returns correct path when fileVisible: true
+ok 72 - getPath() — all siblings return correct distinct paths
+ok 73 - getPath() — node from buildBy returns same path as from build()
+ok 74 - usePathCache: true — getPath() returns correct paths
+ok 75 - usePathCache: true — getPath() returns same object reference on repeated calls
+ok 76 - usePathCache: false — getPath() returns different object references each call
+ok 77 - usePathCache: true — nested node returns correct path
+ok 78 - usePathCache: true — root node returns empty relative
+ok 79 - usePathCache: true — produces same tree structure as without cache
+ok 80 - build() — empty base directory returns root with no children
+ok 81 - build() — deeply nested branch has correct parent chain
+ok 82 - build() — sibling nodes do not share children arrays
+ok 83 - build() — multiple calls return independent trees
+ok 84 - buildBy([]) and build() — returned nodes are independent objects
+# after.always hook
+
+1..84
+# tests 84
+# pass 84
+# fail 0
+
