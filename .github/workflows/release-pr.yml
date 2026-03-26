@@ -34,7 +34,7 @@ jobs:
         with:
           script: |
             const tap = `${{ steps.tap.outputs.tap }}`;
-            const prNumber = ${{ steps.release.outputs.pr }};
+            const prNumber = ${{ steps.release.outputs.pr.number }};
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
