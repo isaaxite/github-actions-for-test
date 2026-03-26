@@ -15,6 +15,12 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
+      
+      - name: test
+        run: |
+          echo "PR created: ${{ steps.release.outputs.pr }}"
+          echo "PR number: ${{ steps.release.outputs['prs']['node']['number'] }}"
+          echo "Release created: ${{ steps.release.outputs.release_created }}"
 
       - name: Checkout code
         uses: actions/checkout@v6
