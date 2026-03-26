@@ -21,4 +21,7 @@ jobs:
 
       - name: test
         run: |
-          echo "${{ toJSON(steps.release.outputs) }}""
+          echo "release_created: ${{ steps.release.outputs.release_created }}"
+          echo "release_tag: ${{ steps.release.outputs.tag_name }}"
+          echo "release_version: ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}.${{ steps.release.outputs.patch }}"
+          echo "paths_released: ${{ steps.release.outputs.paths_released }}"
