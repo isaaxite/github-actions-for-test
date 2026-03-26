@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
     "build": "echo 'nothing need to build' && exit 0",
-    "git-push": "git push origin HEAD && git push --tags"
+    "git-push": "git push origin HEAD && git push --tags",
+    "test:md": "mkdir -p reports && cat ./reports/ava.json | node ./.github/scripts/generate-report.js --title \"Test Results\" > reports/ava.md"
   },
   "standard-version": {
     "scripts": {

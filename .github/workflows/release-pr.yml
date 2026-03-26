@@ -21,11 +21,19 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
-      - name: Tap Content
-        id: tap
+      - name: Get commit inf
+        id: commit_info
         run: |
-          echo "tap<<EOF" >> $GITHUB_OUTPUT
-          cat ./reports/ava.tap >> $GITHUB_OUTPUT
+          echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          echo "url=https://github.com/${GITHUB_REPOSITORY}/commit/$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Generate test report
+        id: test_report
+        run: |
+          TITLE="Test Results ([${{ steps.commit_info.outputs.hash }}](${{ steps.commit_info.outputs.url }}))"
+
+          echo "comment<<EOF" >> $GITHUB_OUTPUT
+          cat ./reports/ava.json | node ./.github/scripts/generate-report.js --title "${TITLE}" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Comment on Release PR
@@ -33,11 +41,11 @@ jobs:
         uses: actions/github-script@v8
         with:
           script: |
-            const tap = `${{ steps.tap.outputs.tap }}`;
+            const comment = `${{ steps.test_report.outputs.comment }}`;
             const prNumber = ${{ fromJSON(steps.release.outputs.pr).number }};
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: prNumber,
-              body: tap,
+              body: comment,
             });
