@@ -20,7 +20,7 @@ jobs:
         id: tap
         run: |
           echo "tap<<EOF" >> $GITHUB_OUTPUT
-          cat reports/ava.tap >> $GITHUB_OUTPUT
+          cat ./reports/ava.tap >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Comment on Release PR
